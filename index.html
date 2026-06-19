@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Trip Quiz</title>
+
+    <!-- Load Montserrat font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background music -->
+    <audio id="bgm" src="china-music.mp3" loop></audio>
+    
+    <!-- Container wraps all content -->
+    <div class="container">        
+        <!-- Landing Page -->
+        <div id="landing" class="active">
+            <h1>Ready for China, Yuliya?</h1>
+            <p>Com a minha mega experiência em programação, criei este guia para te
+                ajudar a escolher o melhor itinerário aqui na China.</p>
+            <button id="startButton" onclick="startQuiz()">Clica aqui para começar</button> 
+            
+            <button onclick="window.open('https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAACCEzPtUOUE0VFhWQk9IVlFKODM5WklTSzFHRTlXMS4u', '_blank')">
+            China Checklist
+            </button>
+       
+        </div>
+
+        <!-- Decision Point 1 -->
+        <div id="dp1" class="question">
+            <h2>Primeira pergunta: o que é que te apetece realmente ver?</h2>
+            <button onclick="next('dp2_urban')">A China mais moderna</button>
+            <button onclick="next('dp2_rural')">A China do Tiktok</button>
+            <button onclick="next('dp2_idc')">Não me interessa, não quero saber</button>
+        </div>
+
+        <!-- Decision Point 2 -->
+        <div id="dp2_urban" class="question">
+            <h2>Moderno, uh? É o que há mais por cá. Que parte do moderno queres explorar?</h2>
+            <button onclick="next('dp3_shanghai')">Shanghai apenas, quero é chillar</button>
+            <button onclick="next('dp3_mix')">Várias cidades, venho cheia de energia</button>
+        </div>
+
+        <!-- Decision Point 3 -->
+        <div id="dp3_shanghai" class="question">
+            <h2>A sério? Xangai durante 10 dias? Tens a certeza?</h2>
+            <button onclick="next('dp4_reconsider')">Vá, eu faço o sacrifício, vamos visitar algo aqui perto</button>
+            <button onclick="next('dp4_shanghai2')">Claro que sim, onde é que vou encontrar piscina, campo de ténis, squash, ginásio, tudo a 2 minutos de casa?</button>
+        </div>
+
+        <!-- Decision Point 4 -->
+        <div id="dp4_reconsider" class="question">
+            <h2>Muito bem, vamos filtrar por opções turísticas mais perto.</h2>
+            <button onclick="next('dp5_nature')">Mostra-me natureza, lagos, forestas ou montanhas, qualquer um serve</button>
+            <button onclick="next('dp5_villages')">Que tal sítios em que toda a gente vai querer tirar uma selfie comigo?</button>
+        </div>
+
+        <!-- Decision Point 5 -->
+        <div id="dp4_shanghai2" class="question">
+            <h2>Lamento que só vás conhecer Xangai, mas pelo menos tens as modernices todas à disposição.</h2>
+            <button onclick="next('dp5_luxo')">Não é por ti, é mais para aproveitar os luxos que tenho aí de borla (e outros que me vais arranjar)</button>
+            <button onclick="next('dp5_boring')">Quero é ver que tipo de cenas andas a fazer deste lado do mundo</button>
+            <button onclick="next('dp5_chill')">Mais inclinada para shopping e chillar</button>
+        </div>
+
+        <!-- Decision Point 6 -->
+        <div id="dp3_mix" class="question">
+            <h2>City hopping depois de uns meses no meio da selva?</h2>
+            <button onclick="next('dp4_inovação')">É mais para poder ver cenas inovadoras que ainda não existem na Europa, "tech vibes" e tal</button>
+            <button onclick="next('dp4_moderno')">Não quero Ctrl+C&Ctrl+P, só alguns sítios históricos e modernos para o 'Gram</button>
+        </div>
+
+        <!-- Decision Point 7 -->
+        <div id="dp4_inovação" class="question">
+            <h2>Para quem está habituada a um certo nível de vida na Europa, tech vibes deve ser um regresso a casa.</h2>
+            <button onclick="next('dp5_hk')">E se for algo que é - e não é - China? Algo que todos dizem ser espetacular (mas que o Luís nunca foi, logo não pode comentar)?</button>
+            <button onclick="next('dp5_sz')">Ou uma cidade de que talvez nunca ouvi falar, mas que na China dizem ser a cena mais moderna de sempre?</button>
+        </div>
+
+        <!-- Decision Point 8 -->
+        <div id="dp4_moderno" class="question">
+            <h2>Claro, a tua legião de fãs anda bem habituada aos teus posts, há que alimentar a fome deles por mais conteúdo!</h2>
+            <button onclick="next('dp5_macau')">O que eu tenho é saudades de Portugal (apesar de regressar em duas semanas)</button>
+            <button onclick="next('dp5_pequim')">O algoritmo diz-me que fotos de cenas tipicamente chinesas dá mais likes, resto não interessa</button>
+            <button onclick="next('dp5_chengdu')">Que tal algo moderno e perto de algo tipo... pandas?</button>
+        </div>
+
+        <!-- Decision Point 9 -->
+        <div id="dp2_rural" class="question">
+            <h2>A China que poucos mostram, e que muito poucos vêm. Só para gostos requintados.</h2>
+            <button onclick="next('dp3_humidade')">Sim, sim, e sair desta humidade e chuva (se possível)!</button>
+            <button onclick="next('dp3_AC')">Não quero saber, desde que tenha ar condicionado, tass bem</button>
+            <button onclick="next('dp3_Xangai')">Quanto mais perto de Xangai, melhor</button>
+        </div>
+
+        <!-- Decision Point 10 -->
+        <div id="dp3_humidade" class="question">
+            <h2>Pois, também não consigo aguentar mais um segundo disto. Já derreti umas vinte vezes só a escrever esta frase.</h2>
+            <button onclick="next('dp4_diferente')">Além da zero ou pouca humidade, também quero algo diferente, que nem tinha pensado ser possível.</button>
+            <button onclick="next('dp4_samesame')">Que tal algumas caminhadas?</button>
+        </div>
+
+        <!-- Decision Point 11 -->
+        <div id="dp4_diferente" class="question">
+            <h2>A questão que se coloca, Yuliya, é que para encontrarmos isto teremos de viajar de avião.</h2>
+            <button onclick="next('dp5_viagem')">Ok, whatever, I don't care.</button>
+            <button onclick="next('dp5_short')">O mínimo possível (preferia comboio rápido).</button>
+        </div>
+
+        <!-- Decision Point 12 -->
+        <div id="dp3_AC" class="question">
+            <h2>Lá vamos nós ser comidos por mosquitos... Já vou comprar repelente para 2 meses.</h2>
+            <button onclick="next('dp4_landscape')">Já que faço o sacríficio, quero ver paisagens que valham a pena</button>
+            <button onclick="next('dp4_vanilla')">Que tal aldeias por aqui perto? Com a vibe rural, claro.</button>
+        </div>
+
+        <!-- Decision Point 13 -->
+        <div id="dp4_landscape" class="question">
+            <h2>Com que então queres paisagens? Nada de sonho como no SE Ásia, mas vou ver o que se arranja.</h2>
+            <button onclick="next('dp5_familiar')">Mas sítios que tu conheças, não me quero perder (safe)</button>
+            <button onclick="next('dp5_unknown')">YOLO, perder-se no meio da China é que sim! (risky)</button>
+            <button onclick="next('dp5_watertown')">Não interessa se conheces ou não, desde que sejam ao género de Xangai</button>
+        </div>
+
+        <!-- Decision Point 14 -->
+        <div id="dp5_viagem" class="question">
+            <h2>Aqui está, a típica coragem da Yuliya, admirável. Este é o meu path preferido, agora falta a decisão chave:</h2>
+            <button onclick="next('dp6_norte')">Leva-me para Norte. Tipo, super para Norte.</button>
+            <button onclick="next('dp6_best')">Leva-me para a melhor opção em termos de clima.</button>
+        </div>
+
+        <!-- Decision Point 15 -->
+        <div id="dp3_Xangai" class="question">
+            <h2>Jogar pelo seguro, é melhor estarmos perto da nossa base de operações just in case. Não queres perder o voo e ficar por cá, pois não?</h2>
+            <button onclick="next('dp4_civ')">Nunca! Vim para estar perto da civilização.</button>
+            <button onclick="next('dp4_gram')">Mas algo que mereça ser Instagramado, ok?</button>
+            <button onclick="next('dp4_eng')">De preferência, onde falem inglês, mesmo que seja chinglish.</button>
+        </div>
+
+        <!-- Decision Point 16 -->
+        <div id="dp2_idc" class="question">
+            <h2>Já devia estar à espera desta resposta. Sendo assim, fica tudo nas minhas mãos, e não vais poder reclamar. Estás confortável com isso?</h2>
+            <button onclick="next('dp3_idc')">Quero lá saber</button>
+            <button onclick="restartQuiz()">Enganei-me, sorry, deixa-me ser eu a escolher (voltar ao menu inicial)</button>
+        </div>
+
+        <!-- Decision Point 17 -->
+        <div id="dp3_idc" class="question">
+            <h2>De certeza que alinhas nos meus planos? Absoluta?</h2>
+            <button onclick="next('dp4_idc')">Para efeitos jurídicos, confirmo que não irei criticar ou tentar mudar os planos do Luís.</button>
+            <button onclick="restartQuiz()">Ui, esquece, eu escolho. (voltar ao menu inicial)</button>
+        </div>
+
+        <!-- Decision Point 17 -->
+        <div id="dp4_idc" class="question">
+            <h2>Última hipótese, Yuliya.</h2>
+            <button onclick="next('dp5_idc')">Cala-te e mostra-me para onde vamos.</button>
+            <button onclick="restartQuiz()">Pensando melhor...(voltar ao menu inicial)</button>
+        </div>
+
+        <!-- Bloco para mostrar resultado escolhido -->
+        <div id="finalResult" class="question">
+            <h2>Resultado escolhido</h2>
+            <p id="resultText"></p>
+            <button onclick="copyResult()">Copiar resultado</button>
+        </div>
+
+        <!-- Result: Chengdu -->
+        <div id="dp5_chengdu" class="question">
+            <h2>Chengdu, a cidade dos pandas!</h2>
+            <p>Boa, Yules! Prepara-te para comida super picante, mas para conhecer chineses super chill.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/xZFycryfd70" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: I Don't Care -->
+        <div id="dp5_idc" class="question">
+            <h2>Inner Mongolia, a China que não é China!</h2>
+            <p>Parabéns, Yuliya! Deixaste nas minhas mãos, por isso vou levar-te à estepe chinesa, onde nos espera aventura!</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/26wYW194cWQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+        
+        <!-- Result: Nature -->
+        <div id="dp5_nature" class="question">
+            <h2>SuHang, a combinação Céu+Terra! (para os chineses)</h2>
+            <p>Duas cidades que conheço bem, e que tem a sua dose de apelo.. Lagos, canais, montanhas, civilização... Um pouco de tudo!</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/cmq5xFSG1qQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Villages -->
+        <div id="dp5_villages" class="question">
+            <h2>Jiangxi e os seus vales, ótima opção!</h2>
+            <p>Este sítio vale super a pena, e não é tão conhecido... Wanxiang Valley e Wuyuan são apenas para quem quer conhecer a China verdadeira.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/wWHwan0Dt7o" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Luxo -->
+        <div id="dp5_luxo" class="question">
+            <h2>Percebo esta opção. É fácil se habituar a um quotidiano relativamente simples..</h2>
+            <p>Entre o mercado de fakes, e os vários outlets pela cidade, consegues gastar o teu tempo (e dinheiro) em mil e um sítios.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/Ne7j_X82HaQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Boring -->
+        <div id="dp5_boring" class="question">
+            <h2>Yuliya, Yuliya. A opção mais chata?</h2>
+            <p>Acredita que a minha vida não é assim tão interessante. Pelo menos ficas a conhecer a vizinhança...</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/DWzsHLs2uZ8" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Chill -->
+        <div id="dp5_chill" class="question">
+            <h2>Vibe perfeita para quem esteve meses e meses sem parar!</h2>
+            <p>Se é para conhecer sítios para chillar, e para self-care, Xangai é a cidade ideal! Só à volta de casa tenho pelo menos 5 spas - é escolher um.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/k7hg617xmLw" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: HK -->
+        <div id="dp5_hk" class="question">
+            <h2>China que não é China: Hong Kong!</h2>
+            <p>Nunca lá fui, mas toda a gente que visita adora Hong Kong. Não é uma ilha enorme, mas é internacional (e cara). Nightlife que vale a pena.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/ULp70XPhWn0" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Shenzhen -->
+        <div id="dp5_sz" class="question">
+            <h2>Queres conhecer uma cidade que não existia há 20 anos?</h2>
+            <p>Em si, Shenzhen não é nada de especial, exceto ser a casa de inúmeras big tech (tipo Huawei e BYD). Logo percebes a vibe tecnológica da cidade.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/6sPlPvbwOqc" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Macau -->
+        <div id="dp5_macau" class="question">
+            <h2>A versão "Portugal", mas made in China: Macau!</h2>
+            <p>Casinos, restaurantes tugas, calçada portuguesa... Um pequeno toque de Portugal antes do nosso regresso. Escolha interessante.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/ibrmx__rQRo" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Pequim -->
+        <div id="dp5_pequim" class="question">
+            <h2>Vir à China e não ver a muralha...</h2>
+            <p>Mas não só! Pequim está cheia de sítios para visitar, repletos de história (e de chineses curiosos). Se queres sentir a alma comunista, é aqui.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/OaqT6Lh_XPQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Norte -->
+        <div id="dp6_norte" class="question">
+            <h2>Tão norte que até vês a Rússia: Mohe!</h2>
+            <p>Não podia, literalmente, levar-te mais a Norte do que isto. Tive de ir pesquisar onde raio era esta cidade, mas pelo que vi, bem nice.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/APnBJt3-w5k" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Inner Mongolia -->
+        <div id="dp6_best" class="question">
+            <h2>Decisão certa! Inner Mongolia, o melhor sítio na China para se estar (em julho).</h2>
+            <p>Se chegaste até aqui, é porque descobriste a decisão certa (e a que eu mais queria). Sim, vamos ter que viajar, mas vai valer a pena. Que venha a estepe!</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/oiDmxtJ8ReI" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Short -->
+        <div id="dp5_short" class="question">
+            <h2>Anhui, a província das mil montanhas!</h2>
+            <p>Nunca explorei muito esta região, mas os chineses adoram as montanhas de Anhui (dizem ser míticas). Who knows.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/sJ0u_7qV7Pg" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Familiar -->
+        <div id="dp5_familiar" class="question">
+            <h2>Zhangjiajie, ou Montanhas Avatar!</h2>
+            <p>Já aqui vim 3 vezes, mas não deixa de ser impressionante.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/-twy8zH2ON4" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Unknown -->
+        <div id="dp5_unknown" class="question">
+            <h2>Mais verde é difícil: Liupanshui/Guilin</h2>
+            <p>Se alguma vez quiseste saber onde eram as paisagens dos quadros chineses pintados à mão, este é o sítio a visitar.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/o0RVOWR1uqU" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Watertown -->
+        <div id="dp5_watertown" class="question">
+            <h2>Uma de muitas opções: os canais de Anhui</h2>
+            <p>Em específico, Hongcun e Xidi, sítios famosos pelas suas vilas perto de água (mas diferentes das do SE Ásia).</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/U9-HLRpuhsk" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Civilisation -->
+        <div id="dp4_civ" class="question">
+            <h2>Terracota Land: Xi'an</h2>
+            <p>Se vieste aqui parar, é porque estavas mesmo à procura de um sítio para estar numa queue durante horas. Xi'an é a opção certa.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/KHb1ba6lOBY" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Instagram -->
+        <div id="dp4_gram" class="question">
+            <h2>Yunnan: o segredo da China</h2>
+            <p>Teremos de ter cuidado, porque coincide com a época das chuvas, mas Shangri-La e Lijiang são ótimos. E é um dos poucos sítios onde shrooms são legais na China...</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/Fy-YI4YuvmA" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Inglês -->
+        <div id="dp4_eng" class="question">
+            <h2>A cidade mais confusa do mundo: Chongqing!</h2>
+            <p>Uma maravilha arquitetónica, e a cidade mais populada do mundo. Perder-se aqui é norma, logo mais vale ir com a flow.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/vMbjREn0m8k" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Inglês -->
+        <div id="dp4_eng" class="question">
+            <h2>A cidade mais confusa do mundo: Chongqing!</h2>
+            <p>Uma maravilha arquitetónica, e a cidade mais populada do mundo. Perder-se aqui é norma, logo mais vale ir com a flow.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/vMbjREn0m8k" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+
+        <!-- Result: Moganshan -->
+        <div id="dp4_samesame" class="question">
+            <h2>Sem ter que arriscar muito: Moganshan Island</h2>
+            <p>É perto, tem ótimos hoteis, caminhadas não são muito cansativas... Opção ideal e low-risk.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/LyjdLiB1v9I" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+        <!-- Result: Zhujiajiao e Tongli -->
+        <div id="dp4_vanilla" class="question">
+            <h2>Aldeias em Xangai? Existem!</h2>
+            <p>A cerca de uma hora de Xangai, encontras "ancient towns" de ZJJ e Tongli, populares e sempre cheias de chineses.</p>
+
+            <!-- Embed YouTube video -->
+            <iframe width="400" height="700" 
+                src="https://www.youtube.com/embed/ebVkKquNRL8" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+
+            <!-- Return button -->
+            <div class="return-btn">
+            <button onclick="restartQuiz()">Voltar ao início</button>        </div>
+            </div>
+
+
+    <!-- Link to external JS -->
+    <script src="script.js"></script>
+</body>
+</html>
