@@ -1,28 +1,31 @@
 // IDs que correspondem a resultados finais e seus nomes amigáveis
 const resultNames = {
-    "dp5_nature": "SuHang",
-    "dp5_villages": "Aldeias",
-    "dp5_luxo": "Luxo",
-    "dp5_boring": "Aborrecido",
-    "dp5_chill": "Relaxar",
-    "dp5_hk": "Hong Kong",
-    "dp5_sz": "Shenzhen",
-    "dp5_macau": "Macau",
-    "dp5_pequim": "Pequim",
-    "dp6_norte": "Norte da China",
-    "dp6_best": "Melhor escolha",
-    "dp5_short": "Viagem curta",
-    "dp5_familiar": "Familiar",
-    "dp5_unknown": "Desconhecido",
-    "dp5_watertown": "Cidade aquática",
-    "dp4_civ": "Civilização",
-    "dp4_gram": "Gramática",
-    "dp4_eng": "Inglês",
-    "dp5_idc": "Inner Mongolia",
-    "dp5_chengdu": "Chengdu"
+  dp5_chengdu: "Chengdu, Cidade dos Pandas 🐼",
+  dp5_zhangjiajie: "Zhangjiajie, Montanhas Avatar ⛰️",
+  dp5_suzhou: "Suzhou 🌸",
+  dp5_hangzhou: "Hangzhou & Qiandao Lake 🌄",
+  dp5_nanjing: "Nanjing, Antiga Capital 🏯",
+  dp5_moganshan: "Moganshan, Refúgio de Montanha 🌲",
+  dp5_zhujiajiao: "Zhujiajiao, Cidade dos Canais 🚤",
+  dp5_chongming: "Chongming Island, Reserva Natural 🌿",
+  dp5_hongcun: "Hongcun & Xidi, Aldeias UNESCO 🏡",
+  dp5_yangzhou: "Yangzhou, Green Lake 🚣",
+  dp5_wanxiang: "Wanxiang Valley, Aldeia na Encosta 🏞️",
+  dp5_huangshan: "Huangshan, Montanhas Icónicas ⛰️",
+  dp4_wuyuan: "Wuyuan, Aldeia Pitoresca 🌻",
+  dp4_anji: "Anji, Chá e Bamboo 🎋",
+  dp4_putuoshan: "Putuo Shan, Ilha Budista 🕉️",
+  dp3_taicang: "Taicang Alps Resort, Snowboard ❄️",
+  dp5_fakemarket: "Fake Market, Bargaining 💸",
+  dp5_nopressure: "Explorar sem Pressão 😌",
+  dp5_luxo: "Luxo & Spas em Xangai ✨"
 };
 
 let chosenResult = null;
+let historyStack = []; // guarda o histórico de blocos
+
+// Lista de resultados finais (IDs)
+const resultIds = Object.keys(resultNames);
 
 function startQuiz() {
     const audio = document.getElementById("bgm");
@@ -43,19 +46,51 @@ function next(id) {
         nextDiv.classList.add('active');
     }
 
+    // guardar histórico
+    historyStack.push(id);
+
     // se for resultado final, guardar e mostrar
-    if (Object.keys(resultNames).includes(id)) {
+    if (resultNames[id]) {
         chosenResult = id;
         document.getElementById("resultText").innerText = "Destino final: " + resultNames[id];
         document.getElementById("finalResult").classList.add("active");
 
-        // parar música
         const audio = document.getElementById("bgm");
         if (audio) {
             audio.pause();
             audio.currentTime = 0;
         }
     }
+}
+
+// Função para regressar atrás
+function goBack() {
+    if (historyStack.length > 1) {
+        historyStack.pop(); // remove o atual
+        const previousId = historyStack[historyStack.length - 1]; // obtém o anterior
+        document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
+        document.getElementById(previousId).classList.add('active');
+    } else {
+        restartQuiz(); // se não houver histórico, volta ao início
+    }
+}
+
+let player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('ytVideo', {
+    events: { 'onReady': onPlayerReady }
+  });
+}
+
+function onPlayerReady(event) {
+  event.target.setVolume(30); // volume inicial a 30%
+}
+
+// Função randomizer
+function randomResult() {
+  const randomIndex = Math.floor(Math.random() * resultIds.length);
+  const chosenId = resultIds[randomIndex];
+  next(chosenId);
 }
 
 function copyResult() {
@@ -67,16 +102,13 @@ function copyResult() {
 }
 
 function restartQuiz() {
-    // esconder todos os blocos
     document.querySelectorAll('.question').forEach(q => q.classList.remove('active'));
-
-    // voltar ao início
     document.getElementById('landing').classList.add('active');
 
-    // parar música
     const audio = document.getElementById("bgm");
     if (audio) {
         audio.pause();
         audio.currentTime = 0;
     }
+    historyStack = []; // limpa histórico
 }

@@ -63,6 +63,25 @@ h1, h2 {
   opacity: 1;
 }
 
+button.start-btn {
+  background-color: #4CAF50; /* verde chamativo */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 12px 20px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+button.start-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+button.start-btn:active {
+  background-color: #2e7031;
+  transform: scale(0.95);
+}
+
 button {
   margin: 10px;
   padding: 10px 18px;
@@ -72,6 +91,32 @@ button {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.1s;
+}
+
+button.randomizer {
+  background: linear-gradient(45deg, #ff9800, #f44336);
+  color: #fff;
+  font-weight: bold;
+}
+css
+
+button.back-btn {
+  background-color: #2196F3; /* azul */
+  color: #fff;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 12px 20px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+button.back-btn:hover {
+  background-color: #1976D2;
+  transform: scale(1.05);
+}
+
+button.back-btn:active {
+  background-color: #0d47a1;
+  transform: scale(0.95);
 }
 
 button:hover {
